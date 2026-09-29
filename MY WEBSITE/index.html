@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Anitha T | LIC Insurance Advisor — Bengaluru</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+
+<style>
+/* ============================================================
+   CSS VARIABLES
+   ============================================================ */
+:root {
+  --bg:#f5f7ff; --bg2:#eef1fb; --card:#ffffff; --nav:#ffffff;
+  --txt:#1a1f36; --txt2:#5a6380; --txt3:#aab0c8;
+  --blue:#1a3fa3; --blue2:#0d2680; --gold:#f0a500; --goldd:#ffd166;
+  --border:#e8ecf8; --shadow:rgba(26,63,163,0.09);
+  --hero-from:#1a3fa3; --hero-to:#0d2680;
+  --chip-bg:#f0f4ff; --chip-txt:#1a3fa3; --chip-border:#dce3f5;
+}
+[data-theme="dark"] {
+  --bg:#090e1a; --bg2:#0d1422; --card:#111827; --nav:#0a0f1c;
+  --txt:#e8eaf0; --txt2:#8891a8; --txt3:#4a5168;
+  --blue:#5b8def; --blue2:#3a6bdb; --gold:#c8a84b; --goldd:#ffd166;
+  --border:#1e2a42; --shadow:rgba(0,0,0,0.4);
+  --hero-from:#0d1a3a; --hero-to:#060d1e;
+  --chip-bg:#1a2238; --chip-txt:#8891a8; --chip-border:#1e2a42;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;scroll-behavior:smooth}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;transition:background 0.3s,color 0.3s}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:3px}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+nav{
+  background:var(--nav);border-bottom:2px solid var(--border);
+  padding:0 2.5rem;height:66px;display:flex;align-items:center;
+  justify-content:space-between;position:sticky;top:0;z-index:999;
+  box-shadow:0 2px 16px var(--shadow);transition:background 0.3s,border-color 0.3s;
+}
+.nav-brand{display:flex;align-items:center;gap:12px;cursor:pointer}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.lic-logo {
+  height: 56px;      /* adjust to taste */
+  width: auto;       /* keeps the logo's proportions */
+  display: block;
+  object-fit: contain;
+}
+.nav-name{color:var(--txt);font-size:16px;font-weight:700}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+nav ul{list-style:none;display:flex;gap:1.5rem}
+nav ul li a{
+  color:var(--txt2);font-size:13px;font-weight:600;text-decoration:none;
+  cursor:pointer;padding-bottom:4px;border-bottom:2px solid transparent;
+  transition:color 0.2s,border-color 0.2s;
+}
+nav ul li a:hover,nav ul li a.active{color:var(--blue);border-bottom-color:var(--gold)}
+.theme-toggle{
+  background:var(--bg2);border:2px solid var(--border);color:var(--txt2);
+  width:42px;height:42px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;transition:all 0.2s;flex-shrink:0;
+}
+.theme-toggle:hover{border-color:var(--blue);color:var(--blue);transform:rotate(20deg)}
+
+/* ============================================================
+   PAGE TOGGLING
+   ============================================================ */
+.page{display:none}.page.active{display:block}
+
+/* ============================================================
+   HERO — 3-COLUMN LAYOUT
+   ============================================================ */
+.hero{
+  background:linear-gradient(135deg,var(--hero-from),var(--hero-to));
+  color:#fff;
+  display:grid;
+  grid-template-columns:1fr 1.3fr 1fr;
+  align-items:center;
+  gap:2rem;
+  padding:4rem 2rem 5rem;
+  min-height:88vh;
+  position:relative;
+  overflow:hidden;
+}
+.hero-dots{
+  position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,0.09) 1px,transparent 1px);
+  background-size:32px 32px;pointer-events:none;
+  grid-column:1/-1;
+}
+.hero-arc{
+  position:absolute;bottom:-60px;left:50%;
+  transform:translateX(-50%);width:120%;height:120px;
+  background:var(--bg);border-radius:50% 50% 0 0;
+  transition:background 0.3s;z-index:1;
+}
+.hero-left,.hero-right{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.hero-center{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;z-index:4;
+}
+.hero-eyebrow{font-size:11px;letter-spacing:3px;color:var(--goldd);text-transform:uppercase;margin-bottom:1.2rem;opacity:0;animation:fadeUp 0.6s 0.1s forwards}
+.hero h1{font-size:52px;font-weight:800;line-height:1.1;margin-bottom:1.2rem;opacity:0;animation:fadeUp 0.6s 0.3s forwards}
+.hero h1 span{color:var(--goldd)}
+.hero-sub{font-size:16px;color:rgba(255,255,255,0.82);max-width:520px;margin:0 auto 1.5rem;line-height:1.8;opacity:0;animation:fadeUp 0.6s 0.5s forwards}
+.typed-row{font-size:18px;color:var(--goldd);min-height:30px;margin-bottom:2.5rem;opacity:0;animation:fadeUp 0.6s 0.6s forwards}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.6s 0.8s forwards;position:relative;z-index:2}
+.btn-gold{background:var(--gold);color:#1a1f36;border:none;padding:14px 32px;font-size:14px;font-weight:700;border-radius:9px;cursor:pointer;transition:background 0.2s,transform 0.15s}
+.btn-gold:hover{background:var(--goldd);transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,0.15);color:#fff;border:2px solid rgba(255,255,255,0.5);padding:14px 32px;font-size:14px;font-weight:700;border-radius:9px;cursor:pointer;transition:all 0.2s}
+.btn-ghost:hover{background:rgba(255,255,255,0.25)}
+
+/* ── HOME HERO IMAGES (squared/rectangle, no captions) ── */
+.hero-imgs{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  align-items:center;
+  justify-content:center;
+}
+.himg{
+  border-radius:16px;overflow:hidden;
+  border:3px solid rgba(255,255,255,0.3);
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  transition:transform 0.3s,border-color 0.3s;
+}
+.himg:hover{transform:scale(1.04);border-color:var(--goldd)}
+.himg img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* single tall image on the left */
+.himg-single{width:350px;height:300px;}
+/* two stacked rectangles on the right */
+.himg-pair{width:220px;height:143px;}
+.himg-caption{
+  font-family:'Georgia','Times New Roman',serif;
+  font-size:18px;font-style:italic;
+  color:rgba(255,255,255,0.88);
+  text-align:center;line-height:1.5;
+  max-width:230px;margin-top:-4px;
+}
+
+/* ============================================================
+   STATS BAR
+   ============================================================ */
+.stats-row{display:flex;justify-content:center;background:var(--card);border-bottom:2px solid var(--border);transition:background 0.3s}
+.stat-box{flex:1;max-width:200px;text-align:center;padding:1.75rem 1rem;border-right:1px solid var(--border)}
+.stat-box:last-child{border-right:none}
+.stat-num{font-size:30px;font-weight:800;color:var(--blue)}
+.stat-lbl{font-size:11px;color:var(--txt3);margin-top:4px;letter-spacing:1px;text-transform:uppercase}
+
+/* ============================================================
+   SHARED LAYOUT
+   ============================================================ */
+.section-wrap{max-width:1060px;margin:0 auto;padding:4.5rem 2rem}
+.sec-head{text-align:center;margin-bottom:3rem}
+.sec-head h2{font-size:34px;font-weight:800;color:var(--txt);margin-bottom:0.5rem}
+.sec-head p{font-size:14px;color:var(--txt2)}
+.blue-bar{width:50px;height:4px;background:var(--blue);border-radius:2px;margin:0.75rem auto}
+
+/* ============================================================
+   WHY CARDS
+   ============================================================ */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.why-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.75rem;transition:transform 0.2s,box-shadow 0.2s}
+.why-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px var(--shadow)}
+.why-icon{width:52px;height:52px;background:#e6f1fb;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:14px}
+[data-theme="dark"] .why-icon{background:rgba(91,141,239,0.15)}
+.why-card h3{font-size:16px;font-weight:700;color:var(--txt);margin-bottom:8px}
+.why-card p{font-size:13px;color:var(--txt2);line-height:1.75}
+
+/* ============================================================
+   POLICY SEARCH & FILTER
+   ============================================================ */
+.search-row{display:flex;gap:12px;margin-bottom:1.75rem;flex-wrap:wrap;align-items:center}
+.search-input{flex:1;min-width:220px;background:var(--card);border:2px solid var(--border);color:var(--txt);padding:11px 18px;border-radius:9px;font-size:14px;outline:none;transition:border-color 0.2s}
+.search-input:focus{border-color:var(--blue)}
+.search-input::placeholder{color:var(--txt3)}
+.filter-btns{display:flex;gap:8px;flex-wrap:wrap}
+.fb{background:var(--card);border:2px solid var(--border);color:var(--txt2);padding:8px 18px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s}
+.fb:hover,.fb.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+
+/* ============================================================
+   POLICY CARDS (GRID)
+   ============================================================ */
+.policies-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.pol-card{background:var(--card);border:2px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;position:relative;transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s}
+.pol-card:hover{transform:translateY(-5px);border-color:var(--blue);box-shadow:0 12px 32px var(--shadow)}
+.pol-card-img{width:100%;height:160px;object-fit:cover;display:block}
+.pol-card-body{padding:1.25rem}
+.pol-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.pol-card:hover::after{transform:scaleX(1)}
+.pol-card.hidden{display:none}
+.cat-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 12px;border-radius:20px;margin-bottom:10px}
+.cb-e{background:#e6f1fb;color:#0c447c}
+.cb-t{background:#fbeaf0;color:#72243e}
+.cb-m{background:#e1f5ee;color:#085041}
+.cb-w{background:#eeedfe;color:#3c3489}
+.cb-p{background:#e6f1fb;color:#185fa5}
+.cb-c{background:#faeeda;color:#633806}
+.cb-n{background:#faece7;color:#712b13}
+[data-theme="dark"] .cb-e{background:rgba(200,168,75,0.15);color:#c8a84b}
+[data-theme="dark"] .cb-t{background:rgba(239,99,123,0.15);color:#ef637b}
+[data-theme="dark"] .cb-m{background:rgba(93,202,165,0.15);color:#5dcaa5}
+[data-theme="dark"] .cb-w{background:rgba(160,155,234,0.15);color:#a09bea}
+[data-theme="dark"] .cb-p{background:rgba(109,181,240,0.15);color:#6db5f0}
+[data-theme="dark"] .cb-c{background:rgba(245,196,113,0.15);color:#f5c471}
+[data-theme="dark"] .cb-n{background:rgba(240,120,80,0.15);color:#f07850}
+.pol-card h3{font-size:15px;font-weight:700;color:var(--txt);margin-bottom:5px}
+.pol-plan-num{font-size:11px;color:var(--txt3);margin-bottom:8px}
+.pol-card p{font-size:12px;color:var(--txt2);line-height:1.65}
+.pol-view-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:var(--blue);color:#fff;border:none;padding:8px 18px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:background 0.2s,transform 0.15s}
+.pol-view-btn:hover{background:var(--blue2);transform:translateY(-1px)}
+.no-results{text-align:center;padding:4rem;color:var(--txt3);font-size:14px;display:none}
+
+/* ============================================================
+   POLICY DETAIL PAGE
+   ============================================================ */
+.pol-detail-hero{background:linear-gradient(135deg,var(--hero-from),var(--hero-to));color:#fff;padding:4rem 2rem 3rem;text-align:center;position:relative;overflow:hidden}
+.pol-detail-hero .hero-dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.07) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.pol-detail-hero h1{font-size:34px;font-weight:800;margin-bottom:8px;position:relative}
+.pol-detail-hero .plan-no{font-size:12px;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;position:relative}
+.pol-detail-hero .plan-tag{display:inline-block;background:rgba(240,165,0,0.25);border:1px solid var(--gold);color:var(--goldd);font-size:12px;padding:5px 18px;border-radius:20px;position:relative}
+.back-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);padding:8px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:2rem;transition:all 0.2s}
+.back-btn:hover{background:rgba(255,255,255,0.25)}
+.pol-detail-img{width:100%;max-height:380px;object-fit:cover;display:block}
+.pol-detail-body{max-width:900px;margin:0 auto;padding:3rem 2rem}
+.detail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:3rem}
+.detail-stat{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:1.25rem;text-align:center}
+.detail-stat .ds-icon{font-size:26px;margin-bottom:8px}
+.detail-stat .ds-label{font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.detail-stat .ds-value{font-size:16px;font-weight:700;color:var(--blue)}
+.detail-section{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.75rem;margin-bottom:1.25rem}
+.detail-section h3{font-size:14px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border)}
+.detail-section ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.detail-section ul li{font-size:14px;color:var(--txt2);display:flex;gap:10px;line-height:1.6}
+.detail-section ul li::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px}
+.detail-section p{font-size:14px;color:var(--txt2);line-height:1.8}
+.brochure-btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#1a1f36;border:none;padding:14px 32px;font-size:15px;font-weight:700;border-radius:10px;cursor:pointer;transition:background 0.2s,transform 0.15s;text-decoration:none;margin-top:0.5rem}
+.brochure-btn:hover{background:var(--goldd);transform:translateY(-2px)}
+.consult-btn{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#fff;border:none;padding:14px 32px;font-size:15px;font-weight:700;border-radius:10px;cursor:pointer;transition:background 0.2s,transform 0.15s;text-decoration:none;margin-top:0.5rem;margin-left:12px}
+.consult-btn:hover{background:#1ebe59;transform:translateY(-2px)}
+.detail-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:2rem}
+
+/* ============================================================
+   NEWS
+   ============================================================ */
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.news-card{background:var(--card);border:2px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:transform 0.2s,box-shadow 0.2s}
+.news-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px var(--shadow)}
+.news-img-wrap{width:100%;height:200px;overflow:hidden;flex-shrink:0}
+.news-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform 0.4s}
+.news-card:hover .news-img-wrap img{transform:scale(1.05)}
+.news-body{padding:1.25rem;display:flex;flex-direction:column;flex:1}
+.news-tag{display:inline-block;background:var(--chip-bg);color:var(--chip-txt);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px;align-self:flex-start}
+.news-card h3{font-size:15px;font-weight:700;color:var(--txt);margin-bottom:8px;line-height:1.4}
+.news-card p{font-size:13px;color:var(--txt2);line-height:1.65;margin-bottom:12px;flex:1}
+.news-date{font-size:11px;color:var(--txt3);margin-top:auto}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.testi-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.75rem;position:relative;transition:transform 0.2s,box-shadow 0.2s}
+.testi-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px var(--shadow)}
+.testi-quote{font-size:48px;color:var(--blue);opacity:0.15;position:absolute;top:1rem;right:1.5rem;font-family:Georgia,serif;line-height:1}
+.testi-text{font-size:14px;color:var(--txt2);line-height:1.8;font-style:italic;margin-bottom:1.25rem}
+.testi-stars{color:#f0a500;font-size:16px;margin-bottom:12px;letter-spacing:2px}
+.testi-author{display:flex;align-items:center;gap:12px}
+.testi-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0}
+.testi-name{font-size:14px;font-weight:700;color:var(--txt)}
+.testi-loc{font-size:12px;color:var(--txt3)}
+
+/* ============================================================
+   ABOUT PAGE
+   ============================================================ */
+.about-top{background:linear-gradient(135deg,var(--hero-from),var(--hero-to));padding:5rem 2rem 3.5rem;text-align:center;color:#fff}
+.prof-ring{width:150px;height:150px;border-radius:50%;border:4px solid var(--gold);overflow:hidden;margin:0 auto 1.25rem;display:flex;align-items:center;justify-content:center;background:#2a4fc3;font-size:46px;font-weight:800;color:var(--goldd)}
+.prof-ring img{width:100%;height:100%;object-fit:cover;display:block}
+.about-top h2{font-size:28px;font-weight:800;margin-bottom:6px}
+.about-top .role{font-size:14px;color:rgba(255,255,255,0.75);margin-bottom:14px}
+.about-top .reg{display:inline-block;background:rgba(240,165,0,0.2);border:1px solid var(--gold);color:var(--goldd);font-size:12px;padding:5px 18px;border-radius:20px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:920px;margin:0 auto;padding:3rem 2rem}
+.acard{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.75rem}
+.acard h4{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:1rem}
+.acard p{font-size:14px;color:var(--txt2);line-height:1.85}
+.chip-wrap{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--chip-bg);border:1px solid var(--chip-border);color:var(--chip-txt);font-size:12px;font-weight:600;padding:6px 14px;border-radius:20px}
+.cline{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--txt)}
+.cline:last-child{border-bottom:none}
+.cline-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.cline a{color:var(--blue);text-decoration:none;font-weight:700;transition:color 0.2s}
+.cline a:hover{color:var(--gold);text-decoration:underline}
+
+/* ============================================================
+   CONTACT PAGE
+   ============================================================ */
+.contact-wrap{max-width:700px;margin:0 auto}
+.ccard{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:2rem;margin-bottom:18px}
+.ccard h3{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.crow{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--bg2)}
+.crow:last-child{border-bottom:none}
+.cico{width:42px;height:42px;border-radius:11px;background:#e6f1fb;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+[data-theme="dark"] .cico{background:rgba(91,141,239,0.15)}
+.cico svg{width:18px;height:18px;fill:var(--blue)}
+.clbl{font-size:11px;color:var(--txt3);margin-bottom:3px}
+.cval{font-size:15px;font-weight:700;color:var(--txt)}
+.cval a{color:var(--blue);text-decoration:none;font-weight:700;transition:color 0.2s}
+.cval a:hover{color:var(--gold);text-decoration:underline}
+.wa-btn{display:block;width:100%;background:#25d366;color:#fff;border:none;padding:16px;font-size:16px;font-weight:700;border-radius:12px;cursor:pointer;text-align:center;text-decoration:none;margin-bottom:18px;transition:background 0.2s,transform 0.15s}
+.wa-btn:hover{background:#1ebe59;transform:translateY(-2px)}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq-item{background:var(--card);border:2px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;cursor:pointer;font-size:14px;font-weight:700;color:var(--txt);gap:1rem;transition:color 0.2s}
+.faq-q:hover{color:var(--blue)}
+.faq-icon{color:var(--blue);font-size:22px;transition:transform 0.3s;flex-shrink:0}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+.faq-a-inner{padding:0 1.5rem 1.2rem;font-size:13px;color:var(--txt2);line-height:1.85}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-item.open .faq-a{max-height:320px}
+
+/* ============================================================
+   FLOATING BUTTONS
+   ============================================================ */
+.wa-float{position:fixed;bottom:2rem;right:2rem;background:#25d366;border-radius:50%;width:58px;height:58px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(37,211,102,0.4);z-index:9999;text-decoration:none;transition:transform 0.2s}
+.wa-float:hover{transform:scale(1.12)}
+.wa-float svg{width:30px;height:30px;fill:#fff}
+.top-btn{position:fixed;bottom:6.5rem;right:2rem;background:var(--blue);border-radius:50%;width:48px;height:48px;display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px var(--shadow);z-index:9999;border:none;color:#fff;font-size:20px;transition:background 0.2s,transform 0.2s}
+.top-btn.show{display:flex}
+.top-btn:hover{background:var(--blue2);transform:translateY(-2px)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{background:var(--blue);color:rgba(255,255,255,0.6);text-align:center;padding:2rem;font-size:13px}
+footer span{color:var(--goldd);font-weight:700}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{opacity:0;transform:translateY(18px);transition:opacity 0.6s,transform 0.6s}
+.fade-in.visible{opacity:1;transform:none}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;min-height:auto;padding:4rem 1.5rem 3rem}
+  @media(max-width:900px){
+  .hero{grid-template-columns:1fr;min-height:auto;padding:4rem 1.5rem 3rem}
+  .hero-left,.hero-right{display:none}
+  .hero h1{font-size:32px}
+} 
+}
+@media(max-width:768px){
+  nav{padding:0 1rem}
+  nav ul{gap:0.8rem}
+  nav ul li a{font-size:11px}
+  .about-grid{grid-template-columns:1fr}
+  .stats-row{flex-wrap:wrap}
+  .stat-box{max-width:50%}
+  .detail-btns{flex-direction:column}
+  .consult-btn{margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<!-- FLOATING WHATSAPP -->
+<a class="wa-float" href="https://wa.me/918489411033?text=Hi%20Anitha%2C%20I%20want%20to%20know%20more%20about%20LIC%20plans." target="_blank" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.564 4.14 1.547 5.878L.057 23.857a.5.5 0 00.609.61l6.101-1.525A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.96 0-3.799-.529-5.378-1.449l-.385-.229-3.99.997.983-3.9-.249-.402A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+  </svg>
+</a>
+
+<!-- BACK TO TOP -->
+<button class="top-btn" id="top-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav>
+ <div class="nav-brand" onclick="showPage('home')">
+  <img src="imageslic-logo.png.jpeg" alt="LIC of India logo" class="lic-logo">
+  <span class="nav-name">Anitha T | LIC and Health Insurance Advicer |</span>
+</div>
+  <div class="nav-right">
+    <ul>
+      <li><a onclick="showPage('home')"        id="nl-home"        class="active">Home</a></li>
+      <li><a onclick="showPage('policies')"     id="nl-policies"               >Policies</a></li>
+      <li><a onclick="showPage('news')"         id="nl-news"                   >News</a></li>
+      <li><a onclick="showPage('testimonials')" id="nl-testimonials"           >Testimonials</a></li>
+      <li><a onclick="showPage('about')"        id="nl-about"                  >About</a></li>
+      <li><a onclick="showPage('contact')"      id="nl-contact"                >Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" title="Switch dark/light mode">🌙</button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HOME PAGE
+     ============================================================ -->
+<div id="home" class="page active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-dots"></div>
+
+    <!-- LEFT SIDE — single squared image -->
+    <div class="hero-left">
+  <div class="hero-imgs">
+    <div class="himg himg-single"><img src="img_pen.jpg" alt="Financial planning"/></div>
+    <p class="himg-caption"> "Retirement should mean freedom, not financial worry." </p>
+  </div>
+</div>
+     
+    <!-- CENTER -->
+    <div class="hero-center">
+      <p class="hero-eyebrow">Life Insurance Corporation of India · Bengaluru</p>
+      <h1>Your Future,<br><span>Protected.</span></h1>
+      <p class="hero-sub">Expert guidance on life, health, investments and retirement — personalised for every family across Bengaluru.</p>
+      <div class="typed-row">I specialize in:&nbsp;<span id="typed-svc" style="border-right:2px solid #ffd166;padding-right:9px"></span></div>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="showPage('policies')">Explore All Policies</button>
+        <button class="btn-ghost" onclick="showPage('contact')">Free Consultation</button>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE — two stacked squared images -->
+    <div class="hero-right">
+  <div class="hero-imgs">
+    <div class="himg himg-pair"><img src="img_mar.jpg" alt="Milestone moment"/></div>
+    <p class="himg-caption"> "Celebrate life's biggest moments without financial stress." </p>
+    <div class="himg himg-pair"><img src="img_deg.jpg" alt="Graduation milestone"/></div>
+    <p class="himg-caption"> "When opportunity knocks, savings should answer—not loans." </p>
+  </div>
+</div>
+
+    <div class="hero-arc"></div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">30+</div><div class="stat-lbl">Policy Types</div></div>
+    <div class="stat-box"><div class="stat-num">LIC</div><div class="stat-lbl">Certified Advisor</div></div>
+    <div class="stat-box"><div class="stat-num">7</div><div class="stat-lbl">Plan Categories</div></div>
+    <div class="stat-box"><div class="stat-num">BLR</div><div class="stat-lbl">Serving Bengaluru</div></div>
+  </div>
+
+  <!-- WHY TRUST -->
+  <div class="section-wrap">
+    <div class="sec-head fade-in"><h2>Why Trust Anitha?</h2><p>Honest advice, genuine care, lasting protection.</p><div class="blue-bar"></div></div>
+    <div class="why-grid">
+      <div class="why-card fade-in"><div class="why-icon">🎯</div><h3>Tailored Planning</h3><p>Every recommendation built around your unique goals, family situation, and budget — no generic advice, ever.</p></div>
+      <div class="why-card fade-in"><div class="why-icon">🏛️</div><h3>India's Most Trusted</h3><p>LIC has protected Indian families for over 65 years with unmatched claim settlement and full government backing.</p></div>
+      <div class="why-card fade-in"><div class="why-icon">📲</div><h3>Always Available</h3><p>From policy selection to claim assistance — Anitha is reachable on call and WhatsApp every step of the way.</p></div>
+    </div>
+  </div>
+
+</div><!-- END HOME PAGE -->
+
+<!-- ============================================================
+     POLICIES PAGE
+     ============================================================ -->
+<div id="policies" class="page">
+  <div class="section-wrap">
+    <div class="sec-head"><h2>All Plans &amp; Policies</h2><p>Click any policy to view full details — eligibility, returns, benefits &amp; more.</p><div class="blue-bar"></div></div>
+    <div class="search-row">
+      <input class="search-input" id="pol-search" placeholder="Search policy name or plan number..." oninput="filterPols()"/>
+      <div class="filter-btns">
+        <button class="fb on" data-cat="all" onclick="setFilter(this)">All</button>
+        <button class="fb" data-cat="e"  onclick="setFilter(this)">Endowment</button>
+        <button class="fb" data-cat="t"  onclick="setFilter(this)">Term</button>
+        <button class="fb" data-cat="m"  onclick="setFilter(this)">Money Back</button>
+        <button class="fb" data-cat="w"  onclick="setFilter(this)">Whole Life</button>
+        <button class="fb" data-cat="p"  onclick="setFilter(this)">Pension</button>
+        <button class="fb" data-cat="c"  onclick="setFilter(this)">Child</button>
+        <button class="fb" data-cat="n"  onclick="setFilter(this)">New 2025</button>
+      </div>
+    </div>
+    <div class="policies-grid" id="pol-grid">
+
+      <div class="pol-card" data-cat="w" data-s="jeevan umang 945" data-id="18">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1536010305525-f7aa0834e2c7?w=600&q=80" alt="Senior couple"/>
+        <div class="pol-card-body"><span class="cat-badge cb-w">Whole Life</span><p class="pol-plan-num">Plan No. 945</p><h3>LIC's Jeevan Umang</h3><p>Coverage up to age 100 with annual survival benefits after premium period ends.</p><button class="pol-view-btn" onclick="openPolicy(18)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="w" data-s="jeevan utsav 871" data-id="19">
+        <img class="pol-card-img" src="img_871.jpg" alt="Celebration"/>
+        <div class="pol-card-body"><span class="cat-badge cb-w">Whole Life</span><p class="pol-plan-num">Plan No. 871</p><h3>LIC's Jeevan Utsav</h3><p>Lifelong guaranteed income and risk cover. Payouts for life plus full sum assured on death.</p><button class="pol-view-btn" onclick="openPolicy(19)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="w" data-s="jeevan utsav single premium 872" data-id="20">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=600&q=80" alt="Family legacy"/>
+        <div class="pol-card-body"><span class="cat-badge cb-w">Whole Life</span><p class="pol-plan-num">Plan No. 872</p><h3>LIC's Jeevan Utsav (Single Premium)</h3><p>Pay once, receive guaranteed lifelong income and whole life protection.</p><button class="pol-view-btn" onclick="openPolicy(20)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="e" data-s="jeevan anand 915" data-id="0">
+        <img class="pol-card-img" src="img_915.jpg" alt="Family"/>
+        <div class="pol-card-body"><span class="cat-badge cb-e">Endowment</span><p class="pol-plan-num">Plan No. 915</p><h3>LIC's New Jeevan Anand</h3><p>Endowment + whole life cover. Lump sum at maturity and family stays protected for life.</p><button class="pol-view-btn" onclick="openPolicy(0)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="e" data-s="jeevan labh 936" data-id="1">
+        <img class="pol-card-img" src="img_936.jpg" alt="Family savings"/>
+        <div class="pol-card-body"><span class="cat-badge cb-e">Endowment</span><p class="pol-plan-num">Plan No. 936</p><h3>LIC's Jeevan Labh</h3><p>Limited premium, high returns at maturity. One of LIC's most popular savings-cum-protection plans.</p><button class="pol-view-btn" onclick="openPolicy(1)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="e" data-s="jeevan lakshya 933" data-id="2">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1604881988758-f76ad2f7aac1?w=600&q=80" alt="Education"/>
+        <div class="pol-card-body"><span class="cat-badge cb-e">Endowment</span><p class="pol-plan-num">Plan No. 933</p><h3>LIC's Jeevan Lakshya</h3><p>Annual income for family on policyholder's death. Ideal for child education continuity.</p><button class="pol-view-btn" onclick="openPolicy(2)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="e" data-s="bima jyoti 860" data-id="3">
+        <img class="pol-card-img" src="img_860.jpg" alt="Savings"/>
+        <div class="pol-card-body"><span class="cat-badge cb-e">Endowment</span><p class="pol-plan-num">Plan No. 860</p><h3>LIC's Bima Jyoti</h3><p>Non-linked plan with guaranteed additions and lump sum at maturity. High protection guaranteed.</p><button class="pol-view-btn" onclick="openPolicy(3)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="e" data-s="single premium endowment 917" data-id="4">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&q=80" alt="Investment"/>
+        <div class="pol-card-body"><span class="cat-badge cb-e">Endowment</span><p class="pol-plan-num">Plan No. 917</p><h3>LIC's Single Premium</h3><p>Pay once, stay covered for the full term. Perfect lump sum investment with life protection.</p><button class="pol-view-btn" onclick="openPolicy(4)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="e" data-s="aadhaar stambh 943" data-id="5">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Man"/>
+        <div class="pol-card-body"><span class="cat-badge cb-e">Endowment</span><p class="pol-plan-num">Plan No. 943</p><h3>LIC's Aadhaar Stambh</h3><p>Exclusively for men. Aadhaar-linked endowment with life cover and savings.</p><button class="pol-view-btn" onclick="openPolicy(5)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="e" data-s="aadhaar shila 944" data-id="6">
+        <img class="pol-card-img" src="img_ent.jpg" alt="Woman"/>
+        <div class="pol-card-body"><span class="cat-badge cb-e">Endowment</span><p class="pol-plan-num">Plan No. 944</p><h3>LIC's Aadhaar Shila</h3><p>Exclusively for women. Aadhaar-linked savings and life cover for financial independence.</p><button class="pol-view-btn" onclick="openPolicy(6)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="e" data-s="dhan varsha 866" data-id="7">
+        <img class="pol-card-img" src="img_mon1.jpg" alt="Wealth"/>
+        <div class="pol-card-body"><span class="cat-badge cb-e">Endowment</span><p class="pol-plan-num">Plan No. 866</p><h3>LIC's Dhan Varsha</h3><p>Single premium endowment with guaranteed additions. One-time investment for long-term security.</p><button class="pol-view-btn" onclick="openPolicy(7)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="e" data-s="bima ratna 864" data-id="8">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=600&q=80" alt="Security"/>
+        <div class="pol-card-body"><span class="cat-badge cb-e">Endowment</span><p class="pol-plan-num">Plan No. 864</p><h3>LIC's Bima Ratna</h3><p>Guaranteed return plan with assured additions throughout the term. Safe and rewarding.</p><button class="pol-view-btn" onclick="openPolicy(8)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="t" data-s="digi term 876" data-id="9">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80" alt="Protection"/>
+        <div class="pol-card-body"><span class="cat-badge cb-t">Term</span><p class="pol-plan-num">Plan No. 876</p><h3>LIC's Digi Term</h3><p>Digital-first customizable online term plan. Maximum protection at the lowest cost.</p><button class="pol-view-btn" onclick="openPolicy(9)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="t" data-s="digi credit life 878" data-id="10">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="Loan"/>
+        <div class="pol-card-body"><span class="cat-badge cb-t">Term</span><p class="pol-plan-num">Plan No. 878</p><h3>LIC's Digi Credit Life</h3><p>Credit-linked term plan. Protects family from loan burden in case of death.</p><button class="pol-view-btn" onclick="openPolicy(10)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="t" data-s="yuva term 875" data-id="11">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="Young family"/>
+        <div class="pol-card-body"><span class="cat-badge cb-t">Term</span><p class="pol-plan-num">Plan No. 875</p><h3>LIC's Yuva Term</h3><p>Built for young individuals. High cover at affordable premiums — start early, stay protected longer.</p><button class="pol-view-btn" onclick="openPolicy(11)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="t" data-s="new tech-term 954" data-id="12">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Digital"/>
+        <div class="pol-card-body"><span class="cat-badge cb-t">Term</span><p class="pol-plan-num">Plan No. 954</p><h3>LIC's New Tech-Term</h3><p>Online pure-protection plan with level or decreasing cover. Very high sum assured at minimal cost.</p><button class="pol-view-btn" onclick="openPolicy(12)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="t" data-s="saral jeevan bima 859" data-id="13">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=600&q=80" alt="Simple family"/>
+        <div class="pol-card-body"><span class="cat-badge cb-t">Term</span><p class="pol-plan-num">Plan No. 859</p><h3>LIC's Saral Jeevan Bima</h3><p>Standard simple term plan. Easy to understand and buy — perfect for first-time buyers.</p><button class="pol-view-btn" onclick="openPolicy(13)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="m" data-s="new money back 20 years 920" data-id="14">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80" alt="Happy family"/>
+        <div class="pol-card-body"><span class="cat-badge cb-m">Money Back</span><p class="pol-plan-num">Plan No. 920</p><h3>LIC's New Money Back (20 Yrs)</h3><p>Periodic survival benefits every 5 years plus bonus at maturity.</p><button class="pol-view-btn" onclick="openPolicy(14)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="m" data-s="new money back 25 years 921" data-id="15">
+        <img class="pol-card-img" src="img_921.jpg" alt="Family"/>
+        <div class="pol-card-body"><span class="cat-badge cb-m">Money Back</span><p class="pol-plan-num">Plan No. 921</p><h3>LIC's New Money Back (25 Yrs)</h3><p>Extended 25-year plan with regular cash payouts and enhanced bonuses at maturity.</p><button class="pol-view-btn" onclick="openPolicy(15)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="m" data-s="bima shree 948" data-id="16">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Premium home"/>
+        <div class="pol-card-body"><span class="cat-badge cb-m">Money Back</span><p class="pol-plan-num">Plan No. 948</p><h3>LIC's Bima Shree</h3><p>For high net worth individuals. Guaranteed additions and a substantial lump sum at maturity.</p><button class="pol-view-btn" onclick="openPolicy(16)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="m" data-s="new childrens money back 932" data-id="17">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&q=80" alt="Child education"/>
+        <div class="pol-card-body"><span class="cat-badge cb-m">Money Back</span><p class="pol-plan-num">Plan No. 932</p><h3>LIC's New Children's Money Back</h3><p>Money back at ages 18, 20, 22. Full maturity at 25. Premium waiver on parent's death.</p><button class="pol-view-btn" onclick="openPolicy(17)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="p" data-s="new jeevan shanti 858" data-id="21">
+        <img class="pol-card-img" src="img_gran.jpg" alt="Retirement"/>
+        <div class="pol-card-body"><span class="cat-badge cb-p">Pension</span><p class="pol-plan-num">Plan No. 858</p><h3>LIC's New Jeevan Shanti</h3><p>Deferred annuity — accumulate during working years, receive guaranteed pension from retirement.</p><button class="pol-view-btn" onclick="openPolicy(21)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="p" data-s="jeevan akshay vii 857" data-id="22">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=600&q=80" alt="Senior peace"/>
+        <div class="pol-card-body"><span class="cat-badge cb-p">Pension</span><p class="pol-plan-num">Plan No. 857</p><h3>LIC's Jeevan Akshay VII</h3><p>Immediate annuity — pay lump sum, start receiving pension from very next month.</p><button class="pol-view-btn" onclick="openPolicy(22)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="c" data-s="jeevan tarun 934" data-id="23">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80" alt="Child"/>
+        <div class="pol-card-body"><span class="cat-badge cb-c">Child Plan</span><p class="pol-plan-num">Plan No. 934</p><h3>LIC's Jeevan Tarun</h3><p>Flexible education funding. Survival benefit from 20–24, full maturity at 25.</p><button class="pol-view-btn" onclick="openPolicy(23)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="c" data-s="amritbaal 874" data-id="24">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=600&q=80" alt="Baby"/>
+        <div class="pol-card-body"><span class="cat-badge cb-c">Child Plan</span><p class="pol-plan-num">Plan No. 874</p><h3>LIC's Amritbaal</h3><p>Endowment plan for children with guaranteed additions for education, career or marriage.</p><button class="pol-view-btn" onclick="openPolicy(24)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="n" data-s="jan suraksha 880" data-id="25">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?w=600&q=80" alt="India family"/>
+        <div class="pol-card-body"><span class="cat-badge cb-n">New 2025</span><p class="pol-plan-num">Plan No. 880</p><h3>LIC Jan Suraksha</h3><p>Accessible protection for all income groups. Broad life coverage at an affordable premium.</p><button class="pol-view-btn" onclick="openPolicy(25)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="n" data-s="bima lakshmi 881" data-id="26">
+        <img class="pol-card-img" src="img_881.jpg" alt="Woman empowered"/>
+        <div class="pol-card-body"><span class="cat-badge cb-n">New 2025</span><p class="pol-plan-num">Plan No. 881</p><h3>LIC Bima Lakshmi</h3><p>Women-focused savings and protection for 2025–26. Financial independence with guaranteed returns.</p><button class="pol-view-btn" onclick="openPolicy(26)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="n" data-s="nav jeevan shree 912" data-id="27">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&q=80" alt="New plan"/>
+        <div class="pol-card-body"><span class="cat-badge cb-n">New 2025</span><p class="pol-plan-num">Plan No. 912</p><h3>LIC Nav Jeevan Shree</h3><p>Limited pay endowment with guaranteed returns and life protection. Latest LIC addition.</p><button class="pol-view-btn" onclick="openPolicy(27)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="n" data-s="protection plus 886" data-id="28">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=600&q=80" alt="Shield protection"/>
+        <div class="pol-card-body"><span class="cat-badge cb-n">New 2025</span><p class="pol-plan-num">Plan No. 886</p><h3>LIC Protection Plus</h3><p>Enhanced term with critical illness and accidental death riders. Multi-layer protection.</p><button class="pol-view-btn" onclick="openPolicy(28)">View Full Details →</button></div>
+      </div>
+
+      <div class="pol-card" data-cat="n" data-s="bima kavach 887" data-id="29">
+        <img class="pol-card-img" src="https://images.unsplash.com/photo-1560472355-536de3962603?w=600&q=80" alt="Shield"/>
+        <div class="pol-card-body"><span class="cat-badge cb-n">New 2025</span><p class="pol-plan-num">Plan No. 887</p><h3>LIC Bima Kavach</h3><p>Layered protection shield — life cover, health rider, and savings in one 2025 policy.</p><button class="pol-view-btn" onclick="openPolicy(29)">View Full Details →</button></div>
+      </div>
+
+    </div>
+    <div class="no-results" id="no-results">No policies match. Try a different keyword or filter.</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     POLICY DETAIL PAGE
+     ============================================================ -->
+<div id="policy-detail" class="page">
+  <div class="pol-detail-hero">
+    <div class="hero-dots"></div>
+    <button class="back-btn" onclick="showPage('policies')">← Back to All Policies</button>
+    <p class="plan-no" id="detail-plan-no">Plan No. 000</p>
+    <h1 id="detail-title">Policy Name</h1>
+    <span class="plan-tag" id="detail-tag">Category</span>
+  </div>
+  <img class="pol-detail-img" id="detail-img" src="" alt="Policy"/>
+  <div class="pol-detail-body">
+    <div class="detail-grid" id="detail-stats"></div>
+    <div class="detail-section"><h3>📋 Overview</h3><p id="detail-overview"></p></div>
+    <div class="detail-section"><h3>✅ Eligibility</h3><ul id="detail-eligibility"></ul></div>
+    <div class="detail-section"><h3>💰 Premium Details</h3><ul id="detail-premium"></ul></div>
+    <div class="detail-section"><h3>🌱 Survival Benefits</h3><ul id="detail-survival"></ul></div>
+    <div class="detail-section"><h3>🏆 Maturity Benefits</h3><ul id="detail-maturity"></ul></div>
+    <div class="detail-section"><h3>🛡️ Death Benefits</h3><ul id="detail-death"></ul></div>
+    <div class="detail-section"><h3>📌 Additional Features</h3><ul id="detail-features"></ul></div>
+    <div class="detail-btns">
+      <a class="brochure-btn" id="detail-brochure" href="https://licindia.in" target="_blank">📄 View Official Brochure</a>
+      <a class="consult-btn" href="https://wa.me/919019150699?text=Hi%20Anitha%2C%20I%20want%20to%20know%20more%20about%20this%20policy." target="_blank">💬 Ask Anitha on WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     NEWS PAGE
+     ============================================================ -->
+<div id="news" class="page">
+  <div class="section-wrap">
+    <div class="sec-head"><h2>LIC News &amp; Updates</h2><p>Latest scheme updates, new plans, and announcements from LIC of India.</p><div class="blue-bar"></div></div>
+    <div class="news-grid">
+
+      <div class="news-card">
+        <div class="news-img-wrap"><img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=600&q=80" alt="New plan"/></div>
+        <div class="news-body"><span class="news-tag">New Plan</span><h3>LIC Launches Bima Kavach (Plan 887) for 2025</h3><p>LIC has introduced its latest multi-layered protection plan combining life cover, health riders, and savings in a single, easy-to-manage policy for 2025.</p><div class="news-date">📅 March 2025</div></div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-img-wrap"><img src="img_news1.jpg" alt="Women plan"/></div>
+        <div class="news-body"><span class="news-tag">Women Special</span><h3>LIC Bima Lakshmi — A Plan Designed for Women</h3><p>LIC's new Plan 881 is specially crafted to empower women financially with guaranteed returns, flexible premium options, and comprehensive life coverage.</p><div class="news-date">📅 February 2025</div></div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-img-wrap"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Digital"/></div>
+        <div class="news-body"><span class="news-tag">Digital</span><h3>LIC Expands Online Policy Purchase — Digi Term Now Easier</h3><p>LIC has streamlined its digital term insurance purchase process, making Digi Term (Plan 876) and New Tech-Term (Plan 954) even more accessible online.</p><div class="news-date">📅 January 2025</div></div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-img-wrap"><img src="https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?w=600&q=80" alt="Jan Suraksha"/></div>
+        <div class="news-body"><span class="news-tag">Social Scheme</span><h3>LIC Jan Suraksha (Plan 880) — Protection for All Indians</h3><p>LIC's Jan Suraksha scheme brings affordable life protection to lower-income groups, ensuring financial security for every Indian family regardless of economic background.</p><div class="news-date">📅 December 2024</div></div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-img-wrap"><img src="img_gm.jpg" alt="Pension"/></div>
+        <div class="news-body"><span class="news-tag">Pension Update</span><h3>LIC Jeevan Akshay VII — Enhanced Annuity Rates for 2025</h3><p>LIC has revised the annuity rates for Jeevan Akshay VII (Plan 857), offering better pension payouts for retirees investing in immediate annuity plans this year.</p><div class="news-date">📅 November 2024</div></div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-img-wrap"><img src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=600&q=80" alt="Claim"/></div>
+        <div class="news-body"><span class="news-tag">Achievement</span><h3>LIC Achieves 98.5% Claim Settlement Ratio in 2024–25</h3><p>Life Insurance Corporation of India has once again achieved one of the highest claim settlement ratios in the industry, reinforcing its position as India's most trusted insurer.</p><div class="news-date">📅 October 2024</div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TESTIMONIALS PAGE
+     ============================================================ -->
+<div id="testimonials" class="page">
+  <div class="section-wrap">
+    <div class="sec-head"><h2>What Our Clients Say</h2><p>Real stories from families we have protected across Bengaluru.</p><div class="blue-bar"></div></div>
+    <div class="testi-grid">
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-stars">★★★★★</div><p class="testi-text">I was confused about which policy would be best for my family's future. The agent explained every option patiently without forcing me to buy anything. The entire process was smooth, and even after purchasing the policy, I received regular support whenever I had questions. Highly recommended!</p><div class="testi-author"><div class="testi-avatar" style="background:#1a3fa3">CK</div><div><div class="testi-name">Chenthil Kumaran.T</div><div class="testi-loc">Chennai</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-stars">★★★★★</div><p class="testi-text">Excellent service and genuine guidance. I appreciated the transparency in explaining the benefits, premiums, and claim process. The documentation was completed quickly, and I felt confident that my family's financial future is secure. Thank you for your dedication.</p><div class="testi-author"><div class="testi-avatar" style="background:#0d6e56">P</div><div><div class="testi-name">Priya.K</div><div class="testi-loc">Bengaluru</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-stars">★★★★★</div><p class="testi-text">One of the most trustworthy LIC agents I've met. They helped me choose the right plan according to my budget instead of trying to sell an expensive policy. Their timely premium reminders and prompt assistance have been extremely helpful. I would definitely recommend their service to my friends and relatives.</p><div class="testi-author"><div class="testi-avatar" style="background:#712b13">B</div><div><div class="testi-name">Bharathi.M</div><div class="testi-loc">Bengaluru</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-stars">★★★★★</div><p class="testi-text">From the first meeting, I felt I was getting honest advice rather than a sales pitch. The agent carefully understood my financial goals and suggested a policy that fit my needs perfectly. The experience was professional from start to finish.</p><div class="testi-author"><div class="testi-avatar" style="background:#633806">P</div><div><div class="testi-name">Pavithra</div><div class="testi-loc">Bengaluru</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-stars">★★★★★</div><p class="testi-text">I had several doubts about LIC plans, but every question was answered clearly and patiently. The paperwork was handled efficiently, and the entire process was hassle-free. I'm happy with both the service and the policy I chose.</p><div class="testi-author"><div class="testi-avatar" style="background:#3c3489">D</div><div><div class="testi-name">Deepak</div><div class="testi-loc">Bengaluru</div></div></div></div>
+      <div class="testi-card"><div class="testi-quote">"</div><div class="testi-stars">★★★★★</div><p class="testi-text">What impressed me the most was the after-sales support. Whether it was updating my nominee details or getting premium reminders, the agent was always just a phone call away. Reliable, courteous, and truly customer-focused.</p><div class="testi-author"><div class="testi-avatar" style="background:#185fa5">SK</div><div><div class="testi-name">Sulman Khan</div><div class="testi-loc">Bengaluru</div></div></div></div>
+    </div>
+    <div style="text-align:center;margin:2.5rem auto 0;padding:2rem;background:var(--card);border:2px solid var(--border);border-radius:14px;max-width:600px">
+      <p style="font-size:15px;color:var(--txt2);margin-bottom:1rem">Have you benefited from Anitha's guidance? Share your experience!</p>
+      <a class="wa-btn" style="display:inline-block;width:auto;padding:12px 28px" href="https://wa.me/918489411033?text=Hi%20Anitha%2C%20I%20would%20like%20to%20share%20my%20testimonial." target="_blank">💬 Share Your Experience</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     ABOUT PAGE
+     ============================================================ -->
+<div id="about" class="page">
+  <div class="about-top">
+    <div class="prof-ring">
+      <img src="Classic navy coat portrait.jpg" alt="Anitha T" onerror="this.style.display='none';this.parentNode.innerHTML='AT'"/>
+    </div>
+    <h2>Anitha T</h2>
+    <p class="role">LIC Life Insurance Advisor &nbsp;·&nbsp; Star and Galaxy Health Insurance Advisor &nbsp;·&nbsp; Bengaluru</p>
+    <span class="reg">Reg. No. 04359614</span>
+  </div>
+  <div class="about-grid">
+    <div class="acard" style="grid-column:1/-1">
+      <h4>My Story</h4>
+      <p>I am Anitha T — a certified LIC Life Insurance Advisor and Star and Galaxy Health Insurance empanelled advisor based in Bengaluru. My mission is simple: no family should ever be left financially vulnerable during life's most difficult moments.<br><br>Whether you are a young professional just starting out, a parent planning for your child's future, or someone approaching retirement — I bring clarity, honesty, and genuine care to every consultation. I do not just sell policies; I build financial safety nets that last a lifetime.</p>
+    </div>
+    <div class="acard">
+      <h4>Plans I Offer</h4>
+      <div class="chip-wrap">
+        <span class="chip">Endowment Plans</span><span class="chip">Term Insurance</span>
+        <span class="chip">Money Back Plans</span><span class="chip">Whole Life Plans</span>
+        <span class="chip">Pension &amp; Annuity</span><span class="chip">Child Plans</span>
+        <span class="chip">Star Health Insurance</span><span class="chip">Mutual Funds</span>
+        <span class="chip">New 2025 Plans</span>
+      </div>
+    </div>
+    <div class="acard">
+      <h4>Contact Details</h4>
+      <div class="cline"><span class="cline-dot"></span><a href="tel:+918489411033">+91 84894 11033</a></div>
+      <div class="cline"><span class="cline-dot"></span><a href="tel:+917337703922">+91 73377 03922</a></div>
+      <div class="cline"><span class="cline-dot"></span><a href="mailto:insurance.anitha.t@gmail.com">insurance.anitha.t@gmail.com</a></div>
+      <div class="cline"><span class="cline-dot"></span>Bengaluru, Karnataka, India</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     CONTACT PAGE
+     ============================================================ -->
+<div id="contact" class="page">
+  <div class="section-wrap">
+    <div class="sec-head"><h2>Get in Touch</h2><p>Free consultation — no pressure, no obligation.</p><div class="blue-bar"></div></div>
+    <div class="contact-wrap">
+      <div class="ccard">
+        <h3>Contact Information</h3>
+        <div class="crow"><div class="cico"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div><div><div class="clbl">Phone 1</div><div class="cval"><a href="tel:+918489411033">+91 84894 11033</a></div></div></div>
+        <div class="crow"><div class="cico"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div><div><div class="clbl">Phone 2</div><div class="cval"><a href="tel:+917337703922">+91 73377 03922</a></div></div></div>
+        <div class="crow"><div class="cico"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div><div><div class="clbl">Email</div><div class="cval"><a href="mailto:insurance.anitha.t@gmail.com">insurance.anitha.t@gmail.com</a></div></div></div>
+        <div class="crow"><div class="cico"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div><div><div class="clbl">Location</div><div class="cval">Bengaluru, Karnataka, India</div></div></div>
+        <div class="crow"><div class="cico"><svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg></div><div><div class="clbl">LIC Reg. No.</div><div class="cval">04359614</div></div></div>
+      </div>
+      <a class="wa-btn" href="https://wa.me/918489411033?text=Hi%20Anitha%2C%20I%20want%20to%20learn%20more%20about%20LIC%20plans." target="_blank">💬 &nbsp; Chat on WhatsApp Now</a>
+      <div class="ccard">
+        <h3>Frequently Asked Questions</h3>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the best LIC plan for a salaried person?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">Jeevan Labh (936) and New Jeevan Anand (915) are excellent — limited premium, strong returns, and life cover. Pair with Digi Term (876) for maximum protection at the lowest cost.</div></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I start a child plan with LIC?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">Jeevan Tarun (934) and Amritbaal (874) are ideal. You can start from birth — premiums are low and the policy continues even if something happens to the parent.</div></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is the difference between term and endowment?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">Term gives pure life protection at very low premiums — no maturity payout. Endowment combines savings + life cover so you receive a lump sum at maturity regardless.</div></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I get a pension plan if I am self-employed?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">Absolutely. Jeevan Akshay VII (857) and New Jeevan Shanti (858) are perfect — with no employer PF, your own pension plan is essential.</div></div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How does LIC claim settlement work?<span class="faq-icon">+</span></div><div class="faq-a"><div class="faq-a-inner">LIC has one of India's highest claim settlement ratios. Claims can be filed online via licindia.in or through your advisor. Anitha personally guides all her clients through the full claim process.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 <span>Anitha T</span> — LIC Advisor, Bengaluru &nbsp;|&nbsp;
+  Reg. No. 04359614 &nbsp;|&nbsp; Life Insurance Corporation of India
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+
+/* ── POLICY DATA ── */
+var policies = [
+  {id:0,title:"LIC's New Jeevan Anand",planNo:"Plan No. 915",tag:"Endowment",img:"img_915.jpg",brochure:"https://licindia.in/endowment-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"18 Years"},{icon:"🎂",label:"Max. Entry Age",value:"50 Years"},{icon:"📅",label:"Policy Term",value:"15 – 35 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹1,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"Equal to Policy Term"}],overview:"LIC's New Jeevan Anand (Plan 915) is a participating, non-linked endowment cum whole life plan. On survival to the end of the policy term, the Sum Assured along with bonuses is payable. After maturity, life cover continues for the full Sum Assured for the whole of life.",eligibility:["Minimum entry age: 18 years","Maximum entry age: 50 years","Policy term: 15 to 35 years","Minimum Sum Assured: ₹1,00,000","Maximum Sum Assured: No limit (subject to underwriting)"],premium:["Premiums payable throughout the policy term","Premium mode: Yearly, Half-yearly, Quarterly, Monthly","Tax benefits on premiums under Section 80C","Grace period of 30 days for yearly/half-yearly/quarterly"],survival:["No periodic survival benefits during the policy term","Bonus additions accrue throughout the term","Loyalty addition on completion of full term"],maturity:["Sum Assured on Maturity + Vested Bonuses + Final Additional Bonus payable","Life cover continues for full Sum Assured after maturity","Nominee receives Sum Assured on death after maturity"],death:["Sum Assured on Death = Higher of (10x Annual Premium) OR (105% of premiums paid) OR (Basic Sum Assured)","Plus vested Simple Reversionary Bonuses and Final Additional Bonus","Death benefit not less than 105% of total premiums paid"],features:["Accidental Death and Disability Benefit Rider available","Critical Illness Rider available","Policy Loan available after 3 years","Paid-up value after 3 years of premium payment","Surrender value available after 3 years"]},
+  {id:1,title:"LIC's Jeevan Labh",planNo:"Plan No. 936",tag:"Endowment",img:"img_936.jpg",brochure:"https://licindia.in/endowment-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"8 Years"},{icon:"🎂",label:"Max. Entry Age",value:"59 Years"},{icon:"📅",label:"Policy Term",value:"16, 21, 25 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹2,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"10, 15, 16 Years"}],overview:"LIC's Jeevan Labh (Plan 936) is a limited premium paying, non-linked, with-profits endowment plan offering a combination of protection and savings with a shorter premium paying term.",eligibility:["Minimum entry age: 8 years","Maximum entry age: 59 years (for 16yr term), 54 years (for 21yr), 50 years (for 25yr)","Policy term: 16, 21 or 25 years","Premium paying term: 10, 15 or 16 years","Minimum Sum Assured: ₹2,00,000"],premium:["Limited premium payment — pay for shorter period, covered for longer","Premiums qualify for 80C tax deduction","Grace period of 30 days","Rebate on high Sum Assured amounts"],survival:["No periodic survival benefits during the policy term","Bonuses accumulate throughout the policy term"],maturity:["Basic Sum Assured + Vested Simple Reversionary Bonuses + Final Additional Bonus","Maturity amount is fully tax-free under Section 10(10D)"],death:["Sum Assured on Death + Vested Bonuses + Final Additional Bonus","Death benefit ≥ 105% of total premiums paid","Nominee receives full death benefit immediately"],features:["Limited premium payment — major advantage","Accidental Death & Disability Benefit Rider","Policy loan available after 3 full years","High returns due to limited pay structure","One of LIC's best-selling endowment plans"]},
+  {id:2,title:"LIC's Jeevan Lakshya",planNo:"Plan No. 933",tag:"Endowment",img:"https://images.unsplash.com/photo-1604881988758-f76ad2f7aac1?w=1200&q=90",brochure:"https://licindia.in/endowment-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"18 Years"},{icon:"🎂",label:"Max. Entry Age",value:"50 Years"},{icon:"📅",label:"Policy Term",value:"13 – 25 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹1,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"Term minus 3 years"}],overview:"LIC's Jeevan Lakshya (Plan 933) ensures annual income for the family in case of death during the policy term, along with a lump sum at the end. Ideal for securing child education and family income continuity.",eligibility:["Minimum entry age: 18 years","Maximum entry age: 50 years","Policy term: 13 to 25 years","Premium paying term: Policy term minus 3 years","Minimum Sum Assured: ₹1,00,000"],premium:["PPT is 3 years less than policy term","All standard premium payment modes available","80C tax benefit on premiums","Grace period: 30 days"],survival:["No periodic survival benefits","Bonuses vest throughout the policy term"],maturity:["Sum Assured on Maturity + Vested Bonuses + Final Additional Bonus","Maturity proceeds tax-free under 10(10D)"],death:["10% of Basic Sum Assured paid each year from date of death to maturity","100% of Basic Sum Assured paid at maturity","Plus vested bonuses — family income continues after policyholder's death"],features:["Unique annual income benefit on death","Ideal for parents with young children","Accidental Death & Disability Rider available","Loan available after 2 years","Premium waiver benefit available as rider"]},
+  {id:3,title:"LIC's Bima Jyoti",planNo:"Plan No. 860",tag:"Endowment",img:"img_860.jpg",brochure:"https://licindia.in/endowment-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"90 Days"},{icon:"🎂",label:"Max. Entry Age",value:"60 Years"},{icon:"📅",label:"Policy Term",value:"15 – 20 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹1,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"Equal to Policy Term"}],overview:"LIC's Bima Jyoti (Plan 860) is a non-linked, non-participating savings plan offering guaranteed additions throughout the policy term — zero market risk, all returns guaranteed.",eligibility:["Minimum entry age: 90 days","Maximum entry age: 60 years","Policy term: 15 or 20 years","Minimum Sum Assured: ₹1,00,000","Maximum Sum Assured: No limit"],premium:["Guaranteed Additions: ₹50 per ₹1,000 Sum Assured per year","No market risk — all returns guaranteed","All standard modes of premium payment"],survival:["No periodic survival benefits during policy term","Guaranteed additions accrue each year"],maturity:["Sum Assured + All Guaranteed Additions payable at maturity","Example: ₹10 lakh SA for 20 years = ₹20 lakh+"],death:["Sum Assured on Death paid to nominee","Plus all accrued Guaranteed Additions","Death benefit ≥ 105% of total premiums paid"],features:["100% guaranteed returns — no market risk","Guaranteed Additions of ₹50 per ₹1,000 SA per year","Ideal for conservative investors","Loan facility available","Free look period of 30 days"]},
+  {id:4,title:"LIC's Single Premium Endowment",planNo:"Plan No. 917",tag:"Endowment",img:"https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=1200&q=90",brochure:"https://licindia.in/endowment-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"90 Days"},{icon:"🎂",label:"Max. Entry Age",value:"65 Years"},{icon:"📅",label:"Policy Term",value:"10 – 25 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹50,000"},{icon:"🔄",label:"Premium Mode",value:"Single Premium (One Time)"},{icon:"🎯",label:"PPT",value:"Single Pay"}],overview:"LIC's Single Premium Endowment Plan (Plan 917) is a participating, non-linked endowment plan where premium is paid once in a lump sum. Ideal for those with a lump sum to invest with life cover.",eligibility:["Minimum entry age: 90 days","Maximum entry age: 65 years","Policy term: 10 to 25 years","Minimum Sum Assured: ₹50,000"],premium:["Single lump sum premium payment only","Premium qualifies for 80C deduction in year of payment"],survival:["No periodic survival benefits","Bonuses accrue throughout the policy term"],maturity:["Sum Assured + Vested Bonuses + Final Additional Bonus payable","Tax-free maturity under Section 10(10D)"],death:["Sum Assured + Vested Bonuses + Final Additional Bonus payable to nominee","Death benefit ≥ 125% of Single Premium paid"],features:["Pay once, covered for the full policy term","Loan available immediately after issuance","Ideal for deploying lump sum funds","Surrender value available from day one"]},
+  {id:5,title:"LIC's Aadhaar Stambh",planNo:"Plan No. 943",tag:"Endowment",img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&q=90",brochure:"https://licindia.in/endowment-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"8 Years"},{icon:"🎂",label:"Max. Entry Age",value:"55 Years"},{icon:"📅",label:"Policy Term",value:"10 – 20 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹75,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"Equal to Policy Term"}],overview:"LIC's Aadhaar Stambh (Plan 943) is designed exclusively for male lives — Aadhaar-linked endowment with life cover and savings. Maximum Sum Assured ₹3,00,000.",eligibility:["Exclusively for male policyholders","Aadhaar card mandatory","Minimum entry age: 8 years","Maximum entry age: 55 years","Maximum Sum Assured: ₹3,00,000"],premium:["All standard premium modes available","80C deduction on premiums paid"],survival:["No periodic survival benefits","Bonuses accumulate during the term"],maturity:["Basic Sum Assured + Vested Bonuses + Loyalty Addition payable"],death:["Sum Assured + Bonuses on death","Accidental death: Additional SA payable (up to ₹2 lakh)"],features:["Aadhaar-linked — simpler documentation","Accidental death benefit included","Affordable for lower-middle income segment","Loan available after 3 years"]},
+  {id:6,title:"LIC's Aadhaar Shila",planNo:"Plan No. 944",tag:"Endowment",img:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=1200&q=90",brochure:"https://licindia.in/endowment-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"8 Years"},{icon:"🎂",label:"Max. Entry Age",value:"55 Years"},{icon:"📅",label:"Policy Term",value:"10 – 20 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹75,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"Equal to Policy Term"}],overview:"LIC's Aadhaar Shila (Plan 944) is designed exclusively for female lives. Aadhaar-linked endowment providing financial independence and savings for women. Maximum Sum Assured ₹3,00,000.",eligibility:["Exclusively for female policyholders","Aadhaar card mandatory","Minimum entry age: 8 years","Maximum entry age: 55 years","Maximum Sum Assured: ₹3,00,000"],premium:["All standard premium modes available","80C deduction on premiums"],survival:["No periodic survival benefits","Bonuses accumulate during the term"],maturity:["Basic Sum Assured + Vested Bonuses + Loyalty Addition payable"],death:["Sum Assured + Bonuses payable to nominee","Accidental death: Additional SA payable"],features:["Designed for women's financial empowerment","Aadhaar-linked — easy documentation","Accidental death benefit included","Loan facility available"]},
+  {id:7,title:"LIC's Dhan Varsha",planNo:"Plan No. 866",tag:"Endowment",img:"img_mon1.jpg",brochure:"https://licindia.in/endowment-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"3 Years"},{icon:"🎂",label:"Max. Entry Age",value:"60 Years"},{icon:"📅",label:"Policy Term",value:"10 or 15 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹1,25,000"},{icon:"🔄",label:"Premium Mode",value:"Single Premium"},{icon:"🎯",label:"PPT",value:"Single Pay"}],overview:"LIC's Dhan Varsha (Plan 866) is a non-linked, non-participating single premium savings plan offering guaranteed additions — a safe, one-time investment with life cover.",eligibility:["Minimum entry age: 3 years","Maximum entry age: 60 years","Policy term: 10 or 15 years","Single premium only","Minimum Sum Assured: ₹1,25,000"],premium:["Single lump sum payment","Guaranteed Additions from day one","Tax benefit under 80C"],survival:["No periodic survival benefits"],maturity:["Basic Sum Assured + All Guaranteed Additions payable at maturity"],death:["Sum Assured + Guaranteed Additions payable to nominee","Death benefit ≥ 125% of Single Premium paid"],features:["Zero ongoing premium","Guaranteed Additions — no market risk","Loan available after 1 year","Surrender allowed after 1 year"]},
+  {id:8,title:"LIC's Bima Ratna",planNo:"Plan No. 864",tag:"Endowment",img:"https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=1200&q=90",brochure:"https://licindia.in/endowment-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"5 Years"},{icon:"🎂",label:"Max. Entry Age",value:"55 Years"},{icon:"📅",label:"Policy Term",value:"15, 20, 25 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹5,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"Term minus 3 years"}],overview:"LIC's Bima Ratna (Plan 864) is a limited premium plan providing guaranteed returns through Guaranteed Additions for the full policy term plus survival benefits at specific intervals.",eligibility:["Minimum entry age: 5 years","Maximum entry age: 55 years","Policy term: 15, 20 or 25 years","PPT: Policy term minus 3 years","Minimum Sum Assured: ₹5,00,000"],premium:["Limited premium — PPT is 3 years less than term","Guaranteed Additions: ₹50 per ₹1,000 SA per year"],survival:["15-year policy: 25% of SA at end of 12th year","20-year policy: 25% of SA each at end of 15th and 17th year","25-year policy: 25% of SA each at end of 18th, 20th and 22nd year"],maturity:["Remaining Sum Assured + All Guaranteed Additions payable at maturity"],death:["Sum Assured on Death + Guaranteed Additions payable","Death benefit ≥ 105% of total premiums paid"],features:["Guaranteed returns — zero market risk","Periodic survival benefits — regular cash flows","Loan available after 2 full years","Ideal for HNI investors"]},
+  {id:9,title:"LIC's Digi Term",planNo:"Plan No. 876",tag:"Term Insurance",img:"https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200&q=90",brochure:"https://licindia.in/term-assurance-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"18 Years"},{icon:"🎂",label:"Max. Entry Age",value:"65 Years"},{icon:"📅",label:"Policy Term",value:"10 – 40 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹50,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Monthly"},{icon:"🎯",label:"PPT",value:"Regular / Limited / Single Pay"}],overview:"LIC's Digi Term (Plan 876) is a pure online term insurance plan offering high life cover at the lowest possible cost, purchasable entirely online.",eligibility:["Minimum entry age: 18 years","Maximum entry age: 65 years","Policy term: 10 to 40 years","Maximum maturity age: 80 years","Minimum Sum Assured: ₹50,00,000"],premium:["Pure protection — no maturity benefit","Very low premiums for very high cover","Online purchase — no intermediary cost"],survival:["No survival or maturity benefit — pure protection plan"],maturity:["No maturity benefit payable"],death:["100% of Sum Assured paid to nominee immediately on death","Optional increasing cover: SA increases by 10% every 5 years"],features:["100% online purchase","Cheapest way to get maximum life cover","Critical Illness Benefit rider available","Accidental Death and Disability Benefit rider"]},
+  {id:10,title:"LIC's Digi Credit Life",planNo:"Plan No. 878",tag:"Term Insurance",img:"https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=90",brochure:"https://licindia.in/term-assurance-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"18 Years"},{icon:"🎂",label:"Max. Entry Age",value:"65 Years"},{icon:"📅",label:"Policy Term",value:"2 – 30 Years"},{icon:"💵",label:"Min. Sum Assured",value:"Linked to Loan"},{icon:"🔄",label:"Premium Mode",value:"Single Premium"},{icon:"🎯",label:"PPT",value:"Single Pay"}],overview:"LIC's Digi Credit Life (Plan 878) is a decreasing term plan designed to cover loans. The Sum Assured decreases with the outstanding loan balance.",eligibility:["Minimum entry age: 18 years","Maximum entry age: 65 years","Policy term aligned with loan repayment period (2 to 30 years)","Sum Assured linked to loan amount"],premium:["Single premium paid upfront","100% online purchase available","Tax benefit under 80C on premium"],survival:["No survival benefit — pure decreasing protection"],maturity:["No maturity benefit"],death:["Outstanding loan amount paid directly to lender","Remaining balance (if any) paid to family"],features:["Protects family from home loan / car loan / personal loan burden","Cover decreases with EMI repayments","Single pay — pay once and forget"]},
+  {id:11,title:"LIC's Yuva Term",planNo:"Plan No. 875",tag:"Term Insurance",img:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&q=90",brochure:"https://licindia.in/term-assurance-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"18 Years"},{icon:"🎂",label:"Max. Entry Age",value:"45 Years"},{icon:"📅",label:"Policy Term",value:"15 – 40 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹50,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Monthly"},{icon:"🎯",label:"PPT",value:"Regular / Limited Pay"}],overview:"LIC's Yuva Term (Plan 875) is a pure term plan for young individuals offering very high life cover at the most affordable premiums.",eligibility:["Minimum entry age: 18 years","Maximum entry age: 45 years","Policy term: 15 to 40 years","Minimum Sum Assured: ₹50,00,000","Maximum maturity age: 75 years"],premium:["Very low premiums due to young entry age","Level Cover or Increasing Cover options","Regular pay and limited pay options"],survival:["No maturity or survival benefit — pure protection"],maturity:["No maturity benefit"],death:["Full Sum Assured paid immediately to nominee","Accidental Death Benefit available as rider"],features:["Extremely affordable for young professionals","Premium as low as ₹500/month for ₹1 crore cover","Start early — lock in the lowest possible premium"]},
+  {id:12,title:"LIC's New Tech-Term",planNo:"Plan No. 954",tag:"Term Insurance",img:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=90",brochure:"https://licindia.in/term-assurance-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"18 Years"},{icon:"🎂",label:"Max. Entry Age",value:"65 Years"},{icon:"📅",label:"Policy Term",value:"10 – 40 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹50,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Monthly"},{icon:"🎯",label:"PPT",value:"Regular / Limited / Single Pay"}],overview:"LIC's New Tech-Term (Plan 954) is the updated online term plan offering level or decreasing cover at very competitive premiums.",eligibility:["Minimum entry age: 18 years","Maximum entry age: 65 years","Policy term: 10 to 40 years","Minimum Sum Assured: ₹50,00,000"],premium:["Online only — lower premiums than offline plans","Level Cover or Decreasing Cover option","Non-smoker and female discounts available"],survival:["No survival or maturity benefit"],maturity:["No maturity benefit — pure protection"],death:["Full Sum Assured paid to nominee","Return of Premium option available (optional)"],features:["One of LIC's most competitive online term plans","Return of Premium variant available","100% online — zero paperwork"]},
+  {id:13,title:"LIC's Saral Jeevan Bima",planNo:"Plan No. 859",tag:"Term Insurance",img:"https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=1200&q=90",brochure:"https://licindia.in/term-assurance-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"18 Years"},{icon:"🎂",label:"Max. Entry Age",value:"65 Years"},{icon:"📅",label:"Policy Term",value:"5 – 40 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹5,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"Regular / Limited / Single Pay"}],overview:"LIC's Saral Jeevan Bima (Plan 859) is a simple, standard term plan mandated by IRDAI to make life insurance accessible to every Indian.",eligibility:["Minimum entry age: 18 years","Maximum entry age: 65 years","Minimum Sum Assured: ₹5,00,000","Maximum Sum Assured: ₹25,00,000"],premium:["Standard simple premiums","All payment modes available","80C benefit on premiums"],survival:["No survival benefit — pure protection"],maturity:["No maturity benefit"],death:["Full Sum Assured paid to nominee on death","Only suicide within 12 months excluded"],features:["IRDAI standardized — maximum transparency","Very easy to buy","Ideal for first-time insurance buyers"]},
+  {id:14,title:"LIC's New Money Back Plan — 20 Years",planNo:"Plan No. 920",tag:"Money Back",img:"https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=90",brochure:"https://licindia.in/money-back-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"13 Years"},{icon:"🎂",label:"Max. Entry Age",value:"50 Years"},{icon:"📅",label:"Policy Term",value:"20 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹1,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"15 Years"}],overview:"LIC's New Money Back Plan — 20 Years (Plan 920) provides periodic survival benefits every 5 years. Premiums paid for 15 years, coverage for 20 years.",eligibility:["Minimum entry age: 13 years","Maximum entry age: 50 years","Fixed policy term: 20 years","PPT: 15 years only","Minimum Sum Assured: ₹1,00,000"],premium:["Premium paying term: Only 15 years","Coverage continues for full 20 years","80C benefit on premiums paid"],survival:["20% of Sum Assured at end of 5th year","20% of Sum Assured at end of 10th year","20% of Sum Assured at end of 15th year","Total 60% of SA received back during term"],maturity:["Remaining 40% of Sum Assured + Vested Bonuses + Final Additional Bonus","Maturity proceeds fully tax-free"],death:["Full Sum Assured (100%) paid to nominee — regardless of survival benefits paid","Plus all vested bonuses"],features:["Regular cash flows every 5 years","PPT is only 15 years","Ideal for child education, marriage planning","Full SA paid on death — not reduced by survival benefits"]},
+  {id:15,title:"LIC's New Money Back Plan — 25 Years",planNo:"Plan No. 921",tag:"Money Back",img:"img_921.jpg",brochure:"https://licindia.in/money-back-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"13 Years"},{icon:"🎂",label:"Max. Entry Age",value:"45 Years"},{icon:"📅",label:"Policy Term",value:"25 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹1,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"20 Years"}],overview:"LIC's New Money Back Plan — 25 Years (Plan 921) provides survival benefits every 5 years over 25 years. PPT is only 20 years.",eligibility:["Minimum entry age: 13 years","Maximum entry age: 45 years","Fixed policy term: 25 years","PPT: 20 years","Minimum Sum Assured: ₹1,00,000"],premium:["PPT: 20 years (5 years free coverage at end)","All modes available"],survival:["15% of SA at end of 5th year","15% of SA at end of 10th year","15% of SA at end of 15th year","15% of SA at end of 20th year","Total 60% received back during term"],maturity:["Remaining 40% of SA + Vested Bonuses + Final Additional Bonus"],death:["Full 100% Sum Assured paid to nominee on death","Survival benefits paid do not reduce death benefit"],features:["Longer horizon — better bonus accumulation","Regular 5-year cash flows","Ideal for retirement planning alongside income needs"]},
+  {id:16,title:"LIC's Bima Shree",planNo:"Plan No. 948",tag:"Money Back",img:"https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=90",brochure:"https://licindia.in/money-back-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"8 Years"},{icon:"🎂",label:"Max. Entry Age",value:"55 Years"},{icon:"📅",label:"Policy Term",value:"14, 16, 18, 20 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹10,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"Term minus 4 years"}],overview:"LIC's Bima Shree (Plan 948) is for high net worth individuals. Minimum SA ₹10 lakh with Guaranteed Additions plus survival benefits and large lump sum at maturity.",eligibility:["Minimum entry age: 8 years","Maximum entry age: 55 years","Policy term: 14, 16, 18, or 20 years","PPT: Term minus 4 years","Minimum Sum Assured: ₹10,00,000"],premium:["Limited pay — PPT is 4 years less than term","Guaranteed Additions accrued throughout term"],survival:["Guaranteed Additions payable at end of every 4th year during PPT"],maturity:["50% of Basic Sum Assured + Vested Bonuses + Final Additional Bonus at maturity"],death:["Sum Assured + Guaranteed Additions + Vested Bonuses","Death benefit ≥ 105% of all premiums paid"],features:["Minimum SA of ₹10 lakh — HNI segment plan","Guaranteed Additions provide certainty","Limited pay structure","Loan available after 2 years"]},
+  {id:17,title:"LIC's New Children's Money Back Plan",planNo:"Plan No. 932",tag:"Money Back",img:"https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=1200&q=90",brochure:"https://licindia.in/money-back-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"0 Years (Birth)"},{icon:"🎂",label:"Max. Entry Age",value:"12 Years"},{icon:"📅",label:"Policy Term",value:"25 years minus entry age"},{icon:"💵",label:"Min. Sum Assured",value:"₹1,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"25 years minus entry age"}],overview:"LIC's New Children's Money Back Plan (Plan 932) provides financial support at key stages of a child's life. Matures at age 25 with survival benefits at ages 18, 20, and 22.",eligibility:["Can be taken on child's life from birth to 12 years","Policy matures when child turns 25","Minimum Sum Assured: ₹1,00,000"],premium:["Parent pays premiums until policy term end","Premium Waiver: on parent's death, future premiums waived","Policy continues and child receives all benefits on schedule"],survival:["20% of Basic SA at age 18","20% of Basic SA at age 20","20% of Basic SA at age 22","Total 60% returned during education years"],maturity:["40% of Basic SA + Vested Bonuses + Final Additional Bonus at age 25"],death:["Death of child: All premiums refunded","Death of parent: All future premiums waived, policy continues"],features:["Automatic premium waiver on parent's death","Three survival benefit payouts at key educational ages","Start from birth for maximum savings"]},
+  {id:18,title:"LIC's Jeevan Umang",planNo:"Plan No. 945",tag:"Whole Life",img:"https://images.unsplash.com/photo-1536010305525-f7aa0834e2c7?w=1200&q=90",brochure:"https://licindia.in/whole-life-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"90 Days"},{icon:"🎂",label:"Max. Entry Age",value:"55 Years"},{icon:"📅",label:"Policy Term",value:"100 minus entry age"},{icon:"💵",label:"Min. Sum Assured",value:"₹2,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"15, 20, 25 or 30 Years"}],overview:"LIC's Jeevan Umang (Plan 945) provides whole life coverage up to age 100. After PPT ends, 8% of Sum Assured is paid as annual income every year for life.",eligibility:["Minimum entry age: 90 days","Maximum entry age: 55 years","PPT options: 15, 20, 25 or 30 years","Minimum Sum Assured: ₹2,00,000"],premium:["PPT: 15, 20, 25 or 30 years","After PPT, zero premiums — income for life","Premiums qualify for 80C deduction"],survival:["8% of Basic Sum Assured paid every year after PPT ends","Example: ₹10 lakh SA → ₹80,000 per year for life","True lifelong income"],maturity:["At age 100: Basic SA + Vested Bonuses + Final Additional Bonus"],death:["Death during PPT: Sum Assured + Vested Bonuses + FAB","Death after PPT: Sum Assured + Vested Bonuses + FAB (annual income stops)"],features:["True lifelong income — 8% of SA every year after PPT","Cover continues to age 100","Ideal for retirement income planning","Loan available after 3 years"]},
+  {id:19,title:"LIC's Jeevan Utsav",planNo:"Plan No. 871",tag:"Whole Life",img:"img_871.jpg",brochure:"https://licindia.in/whole-life-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"90 Days"},{icon:"🎂",label:"Max. Entry Age",value:"65 Years"},{icon:"📅",label:"Policy Term",value:"Whole of Life"},{icon:"💵",label:"Min. Sum Assured",value:"₹5,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"5 to 16 Years"}],overview:"LIC's Jeevan Utsav (Plan 871) provides lifelong guaranteed income after a short premium payment period and guaranteed whole life cover.",eligibility:["Minimum entry age: 90 days","Maximum entry age: 65 years","Whole of life coverage","PPT: 5 to 16 years (limited pay)","Minimum Sum Assured: ₹5,00,000"],premium:["Very short PPT: 5 to 16 years only","After PPT, zero premiums — income and cover for life","Guaranteed Additions during PPT: ₹40 per ₹1,000 SA per year"],survival:["After PPT: Flexi Income (Guaranteed Additions) paid annually","Policyholder can choose when to start receiving Flexi Income"],maturity:["No maturity — whole life plan","Sum Assured paid on death at any age"],death:["Full Sum Assured paid to nominee on death at any age","Plus all accrued Guaranteed Additions not yet paid"],features:["Guaranteed income for life after short premium payment","Whole life cover — family protected forever","Ideal for legacy planning","Loan available after PPT completion"]},
+  {id:20,title:"LIC's Jeevan Utsav (Single Premium)",planNo:"Plan No. 872",tag:"Whole Life",img:"https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1200&q=90",brochure:"https://licindia.in/whole-life-plans",stats:[{icon:"👤",label:"Min. Entry Age",value:"90 Days"},{icon:"🎂",label:"Max. Entry Age",value:"65 Years"},{icon:"📅",label:"Policy Term",value:"Whole of Life"},{icon:"💵",label:"Min. Sum Assured",value:"₹5,00,000"},{icon:"🔄",label:"Premium Mode",value:"Single Premium"},{icon:"🎯",label:"PPT",value:"Single Pay"}],overview:"LIC's Jeevan Utsav Single Premium (Plan 872) — pay once, receive guaranteed lifelong income plus whole life protection forever.",eligibility:["Minimum entry age: 90 days","Maximum entry age: 65 years","Single premium payment only","Minimum Sum Assured: ₹5,00,000"],premium:["Single lump sum payment only","No further premium ever required","Large 80C deduction in year of payment"],survival:["Flexi Income: Guaranteed Additions paid as annual income","Income available from policy start — truly immediate"],maturity:["No maturity — whole life plan","Full SA payable on death to nominee"],death:["Full Sum Assured paid to nominee on death at any age","Plus outstanding Guaranteed Additions"],features:["Pay once — income for life","Ideal for deploying a large retirement corpus","Immediate income option available","Whole life cover protects family forever"]},
+  {id:21,title:"LIC's New Jeevan Shanti",planNo:"Plan No. 858",tag:"Pension / Annuity",img:"img_gran.jpg",brochure:"https://licindia.in/jeevan-shanti",stats:[{icon:"👤",label:"Min. Entry Age",value:"30 Years"},{icon:"🎂",label:"Max. Entry Age",value:"79 Years"},{icon:"📅",label:"Policy Term",value:"Deferred Annuity"},{icon:"💵",label:"Min. Purchase Price",value:"₹1,50,000"},{icon:"🔄",label:"Premium Mode",value:"Single Premium"},{icon:"🎯",label:"PPT",value:"Single Pay"}],overview:"LIC's New Jeevan Shanti (Plan 858) is a deferred annuity plan. Pay a lump sum, choose deferment period, then receive guaranteed pension for life. Joint life option available.",eligibility:["Minimum entry age: 30 years","Maximum entry age: 79 years","Minimum deferment: 1 year, Maximum: 12 years","Minimum purchase price: ₹1,50,000"],premium:["Single premium paid once","Pension amount guaranteed from day one","Joint life option: spouse also covered"],survival:["Pension starts after deferment period","Multiple annuity payout options"],maturity:["Annuity continues for life","On death: Purchase Price returned to nominee (if option chosen)"],death:["Annuity stops on death of annuitant","Purchase Price returned to nominee (Return of Purchase Price option)","Joint life: Pension continues to spouse"],features:["Guaranteed pension for life","Pension amount locked in — no market risk","Joint life option for spouse protection","Ideal for retirement corpus deployment"]},
+  {id:22,title:"LIC's Jeevan Akshay VII",planNo:"Plan No. 857",tag:"Pension / Annuity",img:"https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=1200&q=90",brochure:"https://licindia.in/jeevan-akshay",stats:[{icon:"👤",label:"Min. Entry Age",value:"30 Years"},{icon:"🎂",label:"Max. Entry Age",value:"100 Years"},{icon:"📅",label:"Policy Term",value:"Immediate Annuity"},{icon:"💵",label:"Min. Purchase Price",value:"₹1,00,000"},{icon:"🔄",label:"Premium Mode",value:"Single Premium"},{icon:"🎯",label:"PPT",value:"Single Pay"}],overview:"LIC's Jeevan Akshay VII (Plan 857) — pay a lump sum and start receiving pension from the very next month. 10 annuity options. India's most flexible pension plan.",eligibility:["Minimum entry age: 30 years","Maximum entry age: 100 years","Immediate annuity starts next month after purchase","Minimum purchase price: ₹1,00,000","10 different annuity options available"],premium:["Single lump sum — pension starts immediately","Annuity rate fixed at purchase — guaranteed for life"],survival:["Pension paid from month 1","10 payout options including life annuity, joint life, return of purchase price, etc."],maturity:["No maturity — annuity for life"],death:["Depends on annuity option chosen","Return of Purchase Price option: full purchase price returned to nominee","Joint life option: pension continues to spouse"],features:["10 annuity options — most flexible pension plan in India","Pension starts in 30 days from purchase","NPS/EPF/PPF corpus can be used to purchase"]},
+  {id:23,title:"LIC's Jeevan Tarun",planNo:"Plan No. 934",tag:"Child Plan",img:"https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200&q=90",brochure:"https://licindia.in/endowment-plans",stats:[{icon:"👤",label:"Child Entry Age",value:"90 Days – 12 Years"},{icon:"🎂",label:"Max. Entry Age",value:"12 Years"},{icon:"📅",label:"Policy Term",value:"25 minus entry age"},{icon:"💵",label:"Min. Sum Assured",value:"₹75,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"25 minus entry age"}],overview:"LIC's Jeevan Tarun (Plan 934) matures when child is 25. Survival benefits paid between ages 20–24. Premium waiver on parent's death ensures policy always continues.",eligibility:["Child's minimum entry age: 90 days","Child's maximum entry age: 12 years","Policy term: 25 minus child's entry age","Minimum Sum Assured: ₹75,000"],premium:["Parent is proposer and pays premiums","Premium Waiver: on parent's death, premiums waived","Flexible survival benefit proportions"],survival:["Option A: 5% of SA each year from 20–24 (25% total)","Option B: 10% of SA each year from 20–24 (50% total)","Option C: 15% of SA each year from 20–24 (75% total)","Option D: 20% of SA each year from 20–24 (80% total)"],maturity:["Remaining SA + Vested Bonuses + FAB at age 25"],death:["Death of child: Sum Assured + Bonuses paid to proposer","Death of proposer: Premium Waiver — policy continues"],features:["4 survival benefit options","Premium waiver on parent's death","Ideal for child's education, career or marriage","Can be taken from birth"]},
+  {id:24,title:"LIC's Amritbaal",planNo:"Plan No. 874",tag:"Child Plan",img:"https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=1200&q=90",brochure:"https://licindia.in/endowment-plans",stats:[{icon:"👤",label:"Child Entry Age",value:"0 – 13 Years"},{icon:"🎂",label:"Max. Entry Age",value:"13 Years"},{icon:"📅",label:"Policy Term",value:"18 – 25 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹2,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"Equal to Policy Term or Single Pay"}],overview:"LIC's Amritbaal (Plan 874) builds a guaranteed corpus for a child's future with Guaranteed Additions of ₹60 per ₹1,000 SA per year throughout the term.",eligibility:["Child's minimum entry age: 0 years (30 days)","Child's maximum entry age: 13 years","Policy term: 18 to 25 years","Minimum Sum Assured: ₹2,00,000"],premium:["Regular or Single premium option","Guaranteed Additions of ₹60 per ₹1,000 SA per year","Premium Waiver on proposer's death"],survival:["No periodic survival benefits","Guaranteed Additions accumulate throughout"],maturity:["Basic SA + All Guaranteed Additions payable at maturity","Example: ₹5 lakh SA for 18 years = ₹10.4 lakh+"],death:["Death of child: SA + GAs paid to proposer","Death of proposer: Premium Waiver — policy continues"],features:["Highest Guaranteed Additions among LIC child plans","Single pay option available","Zero market risk — all returns guaranteed","Start from birth for maximum corpus building"]},
+  {id:25,title:"LIC Jan Suraksha",planNo:"Plan No. 880",tag:"New 2025",img:"https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?w=1200&q=90",brochure:"https://licindia.in/insurance-plan",stats:[{icon:"👤",label:"Min. Entry Age",value:"18 Years"},{icon:"🎂",label:"Max. Entry Age",value:"55 Years"},{icon:"📅",label:"Policy Term",value:"5 – 20 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹50,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"Equal to Policy Term"}],overview:"LIC Jan Suraksha (Plan 880) is LIC's 2025 social welfare scheme bringing affordable life protection to all income groups.",eligibility:["Minimum entry age: 18 years","Maximum entry age: 55 years","Policy term: 5 to 20 years","Minimum Sum Assured: ₹50,000"],premium:["Very affordable premiums","80C tax benefit","Simple underwriting"],survival:["Details as per policy terms on licindia.in"],maturity:["Sum Assured + applicable bonuses/additions at maturity"],death:["Sum Assured paid to nominee on death during term"],features:["Launched 2025 — latest social protection scheme","Very low SA starting at ₹50,000","Simple enrollment — minimal documentation","Contact Anitha for exact premium and benefit illustrations"]},
+  {id:26,title:"LIC Bima Lakshmi",planNo:"Plan No. 881",tag:"New 2025",img:"img_881.jpg",brochure:"https://licindia.in/insurance-plan",stats:[{icon:"👤",label:"Min. Entry Age",value:"18 Years"},{icon:"🎂",label:"Max. Entry Age",value:"55 Years"},{icon:"📅",label:"Policy Term",value:"As per plan"},{icon:"💵",label:"Min. Sum Assured",value:"₹2,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"As per plan"}],overview:"LIC Bima Lakshmi (Plan 881) is LIC's newest women-centric savings and protection plan launched in 2025–26, empowering women financially with guaranteed returns.",eligibility:["Minimum entry age: 18 years","Maximum entry age: 55 years","Designed specifically for women","Minimum Sum Assured: ₹2,00,000"],premium:["Affordable premiums with women-specific pricing","Guaranteed returns — no market risk","80C tax benefit on premiums"],survival:["Survival benefits as per policy schedule"],maturity:["Guaranteed maturity benefit with additions"],death:["Sum Assured + additions paid to nominee"],features:["Exclusively designed for women's financial goals","Guaranteed returns — zero market risk","Launched 2025 — very latest LIC offering","Contact Anitha for complete illustration and details"]},
+  {id:27,title:"LIC Nav Jeevan Shree",planNo:"Plan No. 912",tag:"New 2025",img:"https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=1200&q=90",brochure:"https://licindia.in/insurance-plan",stats:[{icon:"👤",label:"Min. Entry Age",value:"8 Years"},{icon:"🎂",label:"Max. Entry Age",value:"55 Years"},{icon:"📅",label:"Policy Term",value:"15 – 25 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹2,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Qly / Monthly"},{icon:"🎯",label:"PPT",value:"Limited Pay"}],overview:"LIC Nav Jeevan Shree (Plan 912) is a limited pay endowment plan launched in 2025 with guaranteed returns through Guaranteed Additions over a limited premium paying period.",eligibility:["Minimum entry age: 8 years","Maximum entry age: 55 years","Policy term: 15 to 25 years","Minimum Sum Assured: ₹2,00,000"],premium:["Limited premium payment","Guaranteed Additions throughout the term","80C tax benefit"],survival:["Guaranteed Additions accrue each year"],maturity:["Sum Assured + All Guaranteed Additions payable at maturity"],death:["Sum Assured + Guaranteed Additions paid to nominee"],features:["Brand new 2025 plan","Limited pay structure — major advantage","Guaranteed returns — zero risk","Contact Anitha for full illustration"]},
+  {id:28,title:"LIC Protection Plus",planNo:"Plan No. 886",tag:"New 2025",img:"https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=1200&q=90",brochure:"https://licindia.in/insurance-plan",stats:[{icon:"👤",label:"Min. Entry Age",value:"18 Years"},{icon:"🎂",label:"Max. Entry Age",value:"65 Years"},{icon:"📅",label:"Policy Term",value:"10 – 40 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹25,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Monthly"},{icon:"🎯",label:"PPT",value:"Regular / Limited Pay"}],overview:"LIC Protection Plus (Plan 886) is LIC's enhanced 2025 term protection plan with Critical Illness Benefit and Accidental Death Benefit built into a single plan.",eligibility:["Minimum entry age: 18 years","Maximum entry age: 65 years","Policy term: 10 to 40 years","Minimum Sum Assured: ₹25,00,000"],premium:["Pure protection with enhanced rider coverage","Critical Illness and Accidental Death included","Regular and limited pay options"],survival:["No maturity benefit — pure protection"],maturity:["No maturity benefit"],death:["Full Sum Assured on death","Additional benefit on accidental death","Critical illness benefit on diagnosis"],features:["Multi-layer protection in one plan","Critical illness + accidental death built in","Launched 2025 — latest enhanced term plan","Contact Anitha for full premium quotes"]},
+  {id:29,title:"LIC Bima Kavach",planNo:"Plan No. 887",tag:"New 2025",img:"https://images.unsplash.com/photo-1560472355-536de3962603?w=1200&q=90",brochure:"https://licindia.in/insurance-plan",stats:[{icon:"👤",label:"Min. Entry Age",value:"18 Years"},{icon:"🎂",label:"Max. Entry Age",value:"65 Years"},{icon:"📅",label:"Policy Term",value:"10 – 30 Years"},{icon:"💵",label:"Min. Sum Assured",value:"₹5,00,000"},{icon:"🔄",label:"Premium Mode",value:"Yearly / Half-yearly / Monthly"},{icon:"🎯",label:"PPT",value:"Regular / Limited / Single Pay"}],overview:"LIC Bima Kavach (Plan 887) is LIC's comprehensive 2025 shield plan combining life cover, health rider benefits, and optional savings in one easy-to-manage policy.",eligibility:["Minimum entry age: 18 years","Maximum entry age: 65 years","Policy term: 10 to 30 years","Minimum Sum Assured: ₹5,00,000"],premium:["Comprehensive coverage at competitive premium","Life + health rider in one plan","Single pay option for one-time investors"],survival:["Survival benefits as per plan option chosen"],maturity:["Maturity benefit as per plan option — savings variant returns SA + additions"],death:["Full Sum Assured + applicable riders paid to nominee","Health rider: benefit on hospitalisation or critical illness"],features:["All-in-one protection shield — life + health in one plan","Launched 2025 — most comprehensive new LIC plan","Multiple pay options including single pay","Contact Anitha for complete details"]}
+];
+
+/* ── OPEN POLICY DETAIL ── */
+function openPolicy(id) {
+  var p = policies[id];
+  document.getElementById('detail-plan-no').textContent = p.planNo;
+  document.getElementById('detail-title').textContent = p.title;
+  document.getElementById('detail-tag').textContent = p.tag;
+  document.getElementById('detail-img').src = p.img;
+  document.getElementById('detail-img').alt = p.title;
+  document.getElementById('detail-brochure').href = p.brochure;
+  document.getElementById('detail-overview').textContent = p.overview;
+  var statsHtml = '';
+  p.stats.forEach(function(s) {
+    statsHtml += '<div class="detail-stat"><div class="ds-icon">'+s.icon+'</div><div class="ds-label">'+s.label+'</div><div class="ds-value">'+s.value+'</div></div>';
+  });
+  document.getElementById('detail-stats').innerHTML = statsHtml;
+  function buildList(elId, arr) {
+    document.getElementById(elId).innerHTML = arr.map(function(item){return '<li>'+item+'</li>';}).join('');
+  }
+  buildList('detail-eligibility', p.eligibility);
+  buildList('detail-premium',     p.premium);
+  buildList('detail-survival',    p.survival);
+  buildList('detail-maturity',    p.maturity);
+  buildList('detail-death',       p.death);
+  buildList('detail-features',    p.features);
+  showPage('policy-detail');
+}
+
+/* ── DARK / LIGHT MODE TOGGLE ── */
+var isDark = false;
+function toggleTheme() {
+  isDark = !isDark;
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : '');
+  document.getElementById('theme-btn').textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('lic-theme', isDark ? 'dark' : 'light');
+}
+(function() {
+  var saved = localStorage.getItem('lic-theme');
+  if (saved === 'dark') {
+    isDark = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-btn').textContent = '☀️';
+  }
+})();
+
+/* ── PAGE NAVIGATION ── */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('nav ul li a').forEach(function(a) { a.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  var link = document.getElementById('nl-' + id);
+  if (link) link.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ── POLICY FILTER ── */
+var currentCat = 'all';
+function setFilter(btn) {
+  document.querySelectorAll('.fb').forEach(function(b) { b.classList.remove('on'); });
+  btn.classList.add('on');
+  currentCat = btn.getAttribute('data-cat');
+  filterPols();
+}
+function filterPols() {
+  var q = document.getElementById('pol-search').value.toLowerCase();
+  var cards = document.querySelectorAll('.pol-card');
+  var count = 0;
+  cards.forEach(function(c) {
+    var cat    = c.getAttribute('data-cat');
+    var search = (c.getAttribute('data-s') || '').toLowerCase();
+    var text   = c.innerText.toLowerCase();
+    var catOk  = currentCat === 'all' || cat === currentCat;
+    var qOk    = q === '' || search.indexOf(q) > -1 || text.indexOf(q) > -1;
+    if (catOk && qOk) { c.classList.remove('hidden'); count++; }
+    else { c.classList.add('hidden'); }
+  });
+  document.getElementById('no-results').style.display = count === 0 ? 'block' : 'none';
+}
+
+/* ── FAQ ACCORDION ── */
+function toggleFaq(el) {
+  var item = el.parentElement;
+  var wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+  if (!wasOpen) item.classList.add('open');
+}
+
+/* ── TYPING EFFECT ── */
+var services = ['Life Insurance','Health Insurance','Mutual Funds','Pension Plans','Child Education Plans','Term Insurance','Money Back Plans','Endowment Plans'];
+var sIdx = 0, cIdx = 0, deleting = false;
+function typeNext() {
+  var el = document.getElementById('typed-svc');
+  if (!el) return;
+  var word = services[sIdx];
+  if (!deleting) {
+    el.textContent = word.substring(0, cIdx + 1);
+    cIdx++;
+    if (cIdx === word.length) { deleting = true; setTimeout(typeNext, 1400); return; }
+  } else {
+    el.textContent = word.substring(0, cIdx - 1);
+    cIdx--;
+    if (cIdx === 0) { deleting = false; sIdx = (sIdx + 1) % services.length; }
+  }
+  setTimeout(typeNext, deleting ? 45 : 80);
+}
+typeNext();
+
+/* ── SCROLL ANIMATIONS ── */
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+
+/* ── BACK TO TOP BUTTON ── */
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('top-btn');
+  if (window.scrollY > 400) { btn.classList.add('show'); }
+  else { btn.classList.remove('show'); }
+});
+
+</script>
+</body>
+</html>
