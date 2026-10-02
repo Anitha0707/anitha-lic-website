@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://insuranceagentanitha.in/sitemap.xml
