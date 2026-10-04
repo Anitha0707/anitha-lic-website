@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://insuranceagentanitha.in/sitemap.xml
+Sitemap: https://www.insuranceagentanitha.in/sitemap.xml
